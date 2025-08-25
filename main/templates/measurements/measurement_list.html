@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% block content %}
+<h1>Measurement List</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Height</th>
+      <th>Weight</th>
+      <th>Bicep</th>
+      <th>Forearm</th>
+      <th>Shoulder</th>
+      <th>Chest</th>
+      <th>Waist</th>
+      <th>Thigh</th>
+      <th>Calf</th>
+      <th>BMI</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for measurement in measurements %}
+    <tr>
+      <td>{{ measurement.date_recorded }}</td>
+      <td>{{ measurement.height }}</td>
+      <td>{{ measurement.weight }}</td>
+      <td>{{ measurement.bicep }}</td>
+      <td>{{ measurement.forearm }}</td>
+      <td>{{ measurement.shoulder }}</td>
+      <td>{{ measurement.chest }}</td>
+      <td>{{ measurement.waist }}</td>
+      <td>{{ measurement.thigh }}</td>
+      <td>{{ measurement.calf }}</td>
+      <td>{{ measurement.bmi }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

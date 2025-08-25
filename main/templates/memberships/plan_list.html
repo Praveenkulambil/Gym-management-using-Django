@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Plan List</h1>
+<ul>
+    {% for plan in plans %}
+        <li>{{ plan.name }} - {{ plan.price }} - {{ plan.duration }} days</li>
+    {% endfor %}
+</ul>
+{% endblock %}

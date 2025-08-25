@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block content %}
+
+<h1>Your Payments</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Plan Name</th>
+      <th>Amount</th>
+      <th>Plan Start Date</th>
+      <th>Plan Expiry Date</th>
+      <th>Purchased Date</th>
+      <th>Pay</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for payment in payments %}
+    <tr>
+      <td>{{ payment.plan.name }}</td>
+      <td>{{ payment.amount }} Rs</td>
+      <td>{{ payment.start_date }}</td>
+      <td>{{ payment.expiry_date }}</td>
+      <td>{{ payment.payment_date }}</td>
+      <td>
+  {% if payment.status == 'paid' %}
+    <span style="color: green; font-weight: bold;">PAID</span>
+  {% else %}
+    <a href="{% url 'payment' payment.user.id payment.plan.id %}">PAY</a>
+  {% endif %}
+</td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

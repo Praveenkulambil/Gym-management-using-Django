@@ -1,0 +1,26 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container">
+    <h1>My Workout Plans</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Exercise</th>
+            <th>Sets</th>
+            <th>Reps</th>
+            <th>Day of Week</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for plan in workout_plans %}
+        <tr>
+            <td>{{ plan.exercise.name }}</td>
+            <td>{{ plan.sets }}</td>
+            <td>{{ plan.reps }}</td>
+            <td>{{ plan.day_of_week }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

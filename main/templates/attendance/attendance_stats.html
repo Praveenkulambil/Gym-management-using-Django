@@ -1,0 +1,9 @@
+{% extends "base.html" %} {% block content %}
+<h1>Attendance Stats</h1>
+Total Attendance - {{ records.count }}
+<ol>
+  {% for record in records %}
+  <li>{{ record.date }}</li>
+  {% endfor %}
+</ol>
+{% endblock %}

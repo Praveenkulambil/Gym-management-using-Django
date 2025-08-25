@@ -1,0 +1,94 @@
+{% extends "base.html" %} {% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 text-center mb-3">
+      <button
+        type="button"
+        class="btn btn-success"
+        onclick="window.location.href = '/add_trainer/'"
+      >
+        Register New Trainer
+      </button>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <h2>Trainers List</h2>
+      <table class="table table-success table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Sex</th>
+            <th scope="col">Email</th>
+            <th scope="col">Mobile</th>
+            <th scope="col">Hired date</th>
+            <th  class="text-nowrap">Login Access</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for trainer in trainers %}
+          <tr>
+            <td class="text-nowrap">
+              {{trainer.first_name}} {{trainer.last_name}}
+            </td>
+            <td>{{trainer.age}}</td>
+            <td>{{trainer.sex}}</td>
+            <td>{{trainer.email}}</td>
+            <td>{{trainer.mobile_number}}</td>
+            <td class="text-nowrap">{{trainer.hire_date}}</td>
+            <td class="text-nowrap">
+              <a href="{% url 'approve_trainer' trainer.id %}">
+                <button {% if trainer.user.is_active %}disabled{% endif %}>
+                  {% if trainer.user.is_active %} Approved 
+                  {% else %} Approve
+                  {% endif %}
+                </button>
+              </a>
+              <a href="{% url 'disapprove_trainer' trainer.id %}">
+                <button {% if not trainer.user.is_active %}disabled{% endif %}>
+                  {% if trainer.user.is_active %} Disapprove {% else %}  Disapproved {% endif %}
+                </button>
+              </a>
+            </td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-primary"
+                onclick="fn_ConfirmEdit('/edit_trainer/{{trainer.id}}')"
+              >
+                Edit
+              </button>
+            </td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-danger"
+                onclick="fn_ConfirmDelete('/delete_trainer/{{trainer.id}}')"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+  function fn_ConfirmDelete(url) {
+    if (confirm("Do you want to delete Trainer?")) {
+      window.location.href = url;
+    }
+  }
+  function fn_ConfirmEdit(url) {
+    if (confirm("Do you want to edit Trainer?")) {
+      window.location.href = url;
+    }
+  }
+</script>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+
+{% extends "main.html" %}
+
+ {% block content2 %}
+
+<style>
+
+.hs-item,
+.set-bg {
+    padding-top: 120px !important;
+    margin-top: 0px !important;
+    height: auto !important;
+}
+</style>
+      <form method="post">
+        {% csrf_token %} {{ user_form.as_p }} {{ trainer_form.as_p }}
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+ {% endblock content2 %}
+
+ {% block content3 %} 
+ {% endblock content3 %}
+

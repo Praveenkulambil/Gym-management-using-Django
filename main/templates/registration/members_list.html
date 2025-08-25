@@ -1,0 +1,95 @@
+{% extends "base.html" %} {% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 text-center mb-3">
+      <button
+        type="button"
+        class="btn btn-success"
+        onclick="window.location.href = '/register/'"
+      >
+        Register New Member
+      </button>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <h2>Members List</h2>
+      <table class="table table-success table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Sex</th>
+            <th scope="col">Email</th>
+            <th scope="col">Mobile</th>
+            <th scope="col">Address</th>
+            <th scope="col">Joined date</th>
+            <th class="text-nowrap">Login Access</th>
+            <th scope="col"></th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for member in members %}
+          <tr>
+            <td class="text-nowrap">
+              {{member.first_name}} {{member.last_name}}
+            </td>
+            <td>{{member.age}}</td>
+            <td>{{member.sex}}</td>
+            <td>{{member.email}}</td>
+            <td>{{member.mobile_number}}</td>
+            <td>{{member.address}}</td>
+            <td class="text-nowrap">{{member.join_date}}</td>
+            <td class="text-nowrap">
+              <a href="{% url 'approve_member' member.id %}">
+                <button {% if member.user.is_active %}disabled{% endif %}>
+                  {% if member.user.is_active %} Approved {% else %} Approve {% endif %}
+                </button>
+              </a>
+              <a href="{% url 'disapprove_member' member.id %}">
+                <button {% if not member.user.is_active %}disabled{% endif %}>
+                  {% if member.user.is_active %} Disapprove {% else %} Disapproved {% endif %}
+                </button>
+              </a>
+            </td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-primary"
+                onclick="fn_ConfirmEdit('/edit_member/{{member.id}}')"
+              >
+                Edit
+              </button>
+            </td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-danger"
+                onclick="fn_ConfirmDelete('/delete_member/{{member.id}}')"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+  function fn_ConfirmDelete(url) {
+    if (confirm("Do you want to delete member?")) {
+      window.location.href = url;
+    }
+  }
+  function fn_ConfirmEdit(url) {
+    if (confirm("Do you want to edit member?")) {
+      window.location.href = url;
+    }
+  }
+</script>
+
+{% endblock %}
